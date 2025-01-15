@@ -36,6 +36,7 @@ class Navigator:
     def find_contact(self, contact, content="Hello World"):
         content = urlencode({"text": content})
         self.page.goto(f"https://web.whatsapp.com/send?phone={contact}&{content}")
+        self.page.wait_for_selector('span[dir="auto"]')
         self.page.wait_for_load_state("networkidle")
         self.page.click('span[data-icon="send"]')
 
@@ -44,5 +45,5 @@ if __name__ == "__main__":
     with Navigator() as navigator:
         # navigator.login()
         navigator.login()
-        navigator.find_contact(os.getenv('PHONE'))
+        navigator.find_contact(os.getenv("PHONE"))
         input("Press any key to continue...")
